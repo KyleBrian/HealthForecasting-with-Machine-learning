@@ -109,16 +109,7 @@ def batch_predict(model, csv_file):
 
 We welcome contributions! If you have suggestions or improvements, please fork the repository and submit a pull request.
 
-## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For questions or feedback, please reach out to:
-
-- **Name** - [Your Email](mailto:kylabelma@gmail.com)  
-- **GitHub**: [your_username](https://github.com/KyleBrian)
 
 ---
 
