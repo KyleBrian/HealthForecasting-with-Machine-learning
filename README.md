@@ -35,8 +35,8 @@ pip install pandas joblib matplotlib scikit-learn tkinter
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your_username/HealthRiskPredictor.git
-cd HealthRiskPredictor
+git clone https://github.com/KyleBrian/HealthModel.git
+cd HealthPredictor
 ```
 
 ## Usage
@@ -46,7 +46,7 @@ cd HealthRiskPredictor
 To run the program, execute the following command:
 
 ```bash
-python ml_cancer_heart_predictor_with_error_handling_and_batch_prediction.py
+HealthModel.py
 ```
 
 ### Step-by-Step Guide
