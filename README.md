@@ -35,8 +35,8 @@ pip install pandas joblib matplotlib scikit-learn tkinter
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/KyleBrian/HealthModel.git
-cd HealthPredictor
+https://github.com/KyleBrian/HealthForecasting-with-Machine-learning.git
+cd HealthForecasting-with-Machine-learning
 ```
 
 ## Usage
