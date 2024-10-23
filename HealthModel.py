@@ -1,4 +1,4 @@
-# File: ml_cancer_heart_predictor_with_error_handling_and_batch_prediction.py
+# File: HealthModel.py
 
 import pandas as pd
 import joblib
@@ -15,7 +15,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_curve, auc
 import os
 
-# Open a file dialog to select a file (CSV or model)
+
 def select_file(file_type="csv"):
     root = tk.Tk()
     root.withdraw()  # Hide the root window
@@ -37,7 +37,7 @@ def select_file(file_type="csv"):
         print(f"Error: {e}")
         return None
 
-# Load the dataset with error handling
+
 def load_data(file_path: str):
     try:
         return pd.read_csv(file_path)
@@ -45,7 +45,6 @@ def load_data(file_path: str):
         print(f"Error loading CSV file: {e}")
         return None
 
-# Preprocess the data with error handling
 def preprocess_data(df):
     try:
         X = df.iloc[:, :-1]  # Features
@@ -59,7 +58,7 @@ def preprocess_data(df):
         print(f"Error during data preprocessing: {e}")
         return None, None, None, None, None
 
-# Perform hyperparameter tuning using cross-validation
+
 def cross_validate_models(X_train, y_train):
     try:
         models = {
@@ -87,7 +86,7 @@ def cross_validate_models(X_train, y_train):
         print(f"Error during cross-validation: {e}")
         return {}
 
-# Evaluate a model
+
 def evaluate_model(model, X_test, y_test):
     try:
         y_pred = model.predict(X_test)
@@ -102,7 +101,7 @@ def evaluate_model(model, X_test, y_test):
     except Exception as e:
         print(f"Error during model evaluation: {e}")
 
-# Feature Importance for RandomForest
+
 def feature_importance(model, feature_names):
     if hasattr(model, 'feature_importances_'):
         importance = model.feature_importances_
@@ -113,7 +112,6 @@ def feature_importance(model, feature_names):
     else:
         print("Feature importance is not available for this model.")
 
-# Plot ROC curve for binary classification models
 def plot_roc_curve(models, X_test, y_test):
     try:
         plt.figure(figsize=(10, 8))
@@ -134,7 +132,7 @@ def plot_roc_curve(models, X_test, y_test):
     except Exception as e:
         print(f"Error during ROC curve plotting: {e}")
 
-# Save models to disk
+
 def save_models(models):
     try:
         for name, model in models.items():
@@ -144,7 +142,7 @@ def save_models(models):
     except Exception as e:
         print(f"Error saving models: {e}")
 
-# Load model from disk
+
 def load_model(file_path):
     try:
         return joblib.load(file_path)
@@ -152,7 +150,7 @@ def load_model(file_path):
         print(f"Error loading model: {e}")
         return None
 
-# Batch predictions and save to CSV
+
 def batch_predict(model, csv_file):
     try:
         data = load_data(csv_file)
@@ -168,7 +166,7 @@ def batch_predict(model, csv_file):
     except Exception as e:
         print(f"Error during batch prediction: {e}")
 
-# Main function
+
 if __name__ == "__main__":
     choice = input("Would you like to (1) Train a new model or (2) Load an existing model? Enter 1 or 2: ").strip()
     
