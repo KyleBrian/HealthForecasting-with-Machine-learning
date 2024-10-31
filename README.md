@@ -15,7 +15,7 @@
 
 ## ✨ Features
 
-- **Interactive Mode**: No need to specify command-line arguments—just run the script and follow prompts to select files, target columns, and more.
+- **Interactive Mode**: Start the program, and interactively select files for training and batch predictions using file dialogs.
 - **Error Handling**: Robust checks ensure smooth data loading and preprocessing.
 - **Batch Prediction**: Make predictions for multiple records at once and save results to a CSV file.
 - **Model Tuning**: Leverages `GridSearchCV` and genetic algorithms for hyperparameter and feature optimization.
@@ -33,6 +33,12 @@ Ensure Python is installed. A virtual environment is recommended for package man
 pip install pandas joblib matplotlib scikit-learn tabulate deap
 ```
 
+Make sure `tkinter` is installed as well, as it is used for file selection dialogs. It typically comes pre-installed with Python on many systems. On Ubuntu, you can install it with:
+
+```bash
+sudo apt-get install python3-tk
+```
+
 ### Clone the Repository
 ```bash
 git clone https://github.com/KyleBrian/HealthForecasting-with-Machine-learning.git
@@ -43,21 +49,21 @@ cd HealthForecasting-with-Machine-learning
 
 ## 🚀 Usage
 
-### Running the Program
 To launch the program, simply use the command:
 
 ```bash
 python HealthModel.py
 ```
 
-The program will then prompt you to enter:
+The program will prompt you to:
 
-1. **Path to the Dataset**: Enter the path to your health data CSV file (e.g., `health_data.csv`).
-2. **Target Column**: Select the column name to predict, such as `HeartDisease` or `Diabetes`.
+1. **Choose Mode**: Select whether to train a new model or load an existing one for batch predictions.
+2. **File Selection**:
+   - For training a model, select a CSV file containing health data.
+   - For loading a model, select a saved model file (`.pkl`).
+3. **Batch Predictions**: After loading a model, you can select another CSV file for batch predictions. Results are saved to `predictions_output.csv`.
 
-Afterward, the program will proceed to train multiple machine learning models, evaluate them, and display a comparison of each model’s performance.
-
-### Example Usage
+### Example Workflow
 
 Let’s go through an example step-by-step:
 
@@ -66,40 +72,34 @@ Let’s go through an example step-by-step:
    python HealthModel.py
    ```
 
-2. **File Selection Prompt**:
-   - The program will prompt:  
+2. **Choose Mode**:
+   - You will be prompted:  
      ```
-     Enter the path to the CSV file containing health data (e.g., 'health_data.csv'):
+     Would you like to (1) Train a new model or (2) Load an existing model? Enter 1 or 2:
      ```
-   - Example input:  
-     ```
-     health_data.csv
-     ```
+   - Enter `1` to train a new model, or `2` to load a saved model for batch predictions.
 
-3. **Target Column Selection Prompt**:
-   - The program will display the columns in the dataset and prompt:  
-     ```
-     Columns available for prediction: ['Age', 'BloodPressure', 'HeartDisease']
-     Enter the name of the target column (the column to predict):
-     ```
-   - Example input:  
-     ```
-     HeartDisease
-     ```
+3. **File Selection with Dialogs**:
+   - When prompted, a file dialog will open:
+     - **For training**: Select the CSV file with patient data.
+     - **For batch predictions**: Select the CSV file with batch data to analyze after model loading.
 
-After these inputs, the program will proceed to load data, preprocess it, and train and evaluate each model, displaying a summary of model performances (accuracy, precision, recall, F1-score) in the terminal.
+4. **Model Saving with Dialogs**:
+   - After training, a dialog will prompt you to save each model with a specified file name and location.
 
 ---
 
 ## 🧩 Code Explanation
 
-### 1. **File Selection**
-   The `select_file()` function allows users to select a CSV or model file interactively, ensuring only valid files are processed.
-
+### 1. **File Selection and Model Saving with `tkinter`**
+   The `select_file()` function uses a `tkinter` file dialog to allow users to select CSV or model files for input.
+   
    ```python
-   def select_file():
-       # Code to select file
+   def select_file(file_type="csv"):
+       # Code to open file dialog
    ```
+
+   Similarly, `save_model_dialog()` opens a save dialog to let users specify a file path for each trained model.
 
 ### 2. **Data Loading and Preprocessing**
    - `load_data()`: Loads the CSV file.
@@ -111,8 +111,8 @@ After these inputs, the program will proceed to load data, preprocess it, and tr
    ```
 
 ### 3. **Model Training**
-   - `cross_validate_models()`: Performs hyperparameter tuning using GridSearchCV.
-   - `genetic_algorithm_optimization()`: Evolves model configurations and feature subsets using genetic algorithms.
+   - `cross_validate_models()`: Performs hyperparameter tuning using `GridSearchCV`.
+   - Saves each model to a file using the `tkinter` save dialog.
 
    ```python
    def cross_validate_models(X_train, y_train):
